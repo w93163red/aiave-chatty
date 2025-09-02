@@ -1,0 +1,2 @@
+Write a simple chatbot website front-end that submits a messages array via a POST to /api/chat. The App is titled Chatty. Store the messages on the client side. Message object has role of user or assistant. It also has a field called content, which is the message to display. The response from /api/chat will have a key called response which will be the assistant message. Generate all HTML, CSS, and JS
+

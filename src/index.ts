@@ -1,26 +1,34 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Bind resources to your worker in `wrangler.jsonc`. After adding bindings, a type definition for the
- * `Env` object can be regenerated with `npm run cf-typegen`.
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
+import { Hono } from "hono";
 
-export default {
-	async fetch(request, env, ctx): Promise<Response> {
-		const url = new URL(request.url);
-		switch (url.pathname) {
-			case '/message':
-				return new Response('Hello, World!');
-			case '/random':
-				return new Response(crypto.randomUUID());
-			default:
-				return new Response('Not Found', { status: 404 });
-		}
-	},
-} satisfies ExportedHandler<Env>;
+const app = new Hono<{Bindings: Env}>();
+
+app.get("/api/hello", async(c) => {
+	const results = await c.env.AI.run("@cf/meta/llama-4-scout-17b-16e-instruct", {
+		prompt: "Translate the phrase 'Hello, world' in 5 different languages"
+	})
+	return c.json(results);
+});
+
+app.post("/api/v1/chat", async(c) => {
+	const payload = await c.req.json();
+	const results = await c.env.AI.run("@cf/meta/llama-4-scout-17b-16e-instruct", {
+		messages: payload.messages,
+		max_tokens: 81000
+	})
+	return c.text(results.response);
+});
+
+app.post("/api/chat", async(c) => {
+	const {messages, systemMessage} = await c.req.json();
+	if (systemMessage) {
+		messages.unshift(systemMessage);
+	}
+	const results = await c.env.AI.run("@cf/meta/llama-4-scout-17b-16e-instruct", {
+		messages,
+		max_tokens: 81000
+	})
+	return c.json(results);
+});
+
+
+export default app;
