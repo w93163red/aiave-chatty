@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatty</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-messages" id="chat-messages"></div>
-        <input type="text" id="message-input" placeholder="Type a message...">
-        <button id="send-button">Send</button>
+        <div class="chat-input">
+            <textarea id="user-message" placeholder="Type a message..."></textarea>
+            <button id="send-message">Send</button>
+        </div>
+        <div class="admin-section">
+            <h2>Admin Section</h2>
+            <textarea id="system-message" placeholder="System message...">You are a helpful assistant.</textarea>
+            <button id="example-btn-1">Example 1</button>
+            <button id="example-btn-2">Example 2</button>
+            <button id="example-btn-3">Example 3</button>
+        </div>
     </div>
 
     <script src="script.js"></script>

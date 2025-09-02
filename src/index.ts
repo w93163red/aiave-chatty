@@ -21,8 +21,10 @@ app.post("/api/v1/chat", async(c) => {
 app.post("/api/chat", async(c) => {
 	const {messages, systemMessage} = await c.req.json();
 	if (systemMessage) {
-		messages.unshift(systemMessage);
+		const systemMsg = {role: "system", content: systemMessage};
+		messages.unshift(systemMsg);
 	}
+	console.log(messages);
 	const results = await c.env.AI.run("@cf/meta/llama-4-scout-17b-16e-instruct", {
 		messages,
 		max_tokens: 81000
