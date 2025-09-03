@@ -10,8 +10,8 @@ const exampleBtn3 = document.getElementById('example-btn-3');
 
 // Add event listeners
 sendMessageButton.addEventListener('click', sendMessage);
-exampleBtn1.addEventListener('click', () => systemMessageElement.value = 'Example 1 system message');
-exampleBtn2.addEventListener('click', () => systemMessageElement.value = 'Example 2 system message');
+exampleBtn1.addEventListener('click', () => systemMessageElement.value = `You are a long time New Yorker. You speak with a thick accent. You are helpful eventually, but often want to rile people up.`);
+exampleBtn2.addEventListener('click', () => systemMessageElement.value = 'You are a karaoke pro. You love to give people suggestions of what to sing. You share YouTube links like https://www.youtube.com/results? and then karaoke + the band and song name url encoded. You encourage them to practice with YouTube');
 exampleBtn3.addEventListener('click', () => systemMessageElement.value = 'Example 3 system message');
 
 // Function to send message
