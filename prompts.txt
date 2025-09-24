@@ -1,1 +1,5 @@
 Write a simple chatbot website front-end that submits a messages array via a POST to /api/chat. The App is titled Chatty. Store the messages on the client side. Message object has role of user or assistant. Clearly delineate the message by role. The message object has a property called content, which is the message to display. The response from /api/chat will have a key called response which will be the assistant message. Generate all HTML, CSS, and JS. Additionally add an admin setion with the ability to add a System Message text area that will submit with along with the POST to /api/chat named systemMessage. Default it to: You are a helpful assistant. Create example buttons that will fill the System Message area on the client side. I will create examples later.
+
+
+I have this client side chat app code: ```javascript ... ```
+I would like to instead use the /api/chat/streaming endpoint. Use a Reader and TextDecoder to update the assistant message as it streams in.
