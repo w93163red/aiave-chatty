@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatty</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="chat-container">
-        <header class="app-header">
-            <h1>Chatty 🤖💬</h1>
-        </header>
-        <div class="chat-messages" id="chat-messages"></div>
-        <div class="chat-input">
-            <textarea id="user-message" placeholder="Type a message..."></textarea>
-            <button id="send-message">Send</button>
-        </div>
-        <div class="admin-section">
-            <h2>Admin Section</h2>
-            <textarea id="system-message" placeholder="System message...">You are a helpful assistant.</textarea>
-            <button id="example-btn-1">New Yorker</button>
-            <button id="example-btn-2">Karaoke Wizard</button>
-        </div>
-    </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Chatty</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="chat-container">
+			<header class="app-header">
+				<h1>Chatty 🤖💬</h1>
+			</header>
+			<div class="chat-log" id="chat-log"></div>
+			<div class="input-container">
+				<textarea id="user-input" placeholder="Type a message..."></textarea>
+				<button id="send-btn">Send</button>
+			</div>
+			<div class="admin-section">
+				<h2>Admin Section</h2>
+				<textarea id="system-message" placeholder="System message...">You are a helpful assistant.</textarea>
+				<button id="example-btn-1">New Yorker</button>
+				<button id="example-btn-2">Karaoke Expert</button>
+				<button id="example-btn-3">Technical Explainer</button>
+			</div>
+		</div>
 
-    <footer class="sticky-footer">
-        <div class="footer-line">
-            Built with 🧡 on <a href="https://developers.cloudflare.com" target="_blank">Cloudflare Workers</a> && <a href="https://developers.cloudflare.com/workers-ai" target="_blank">Workers AI</a> for AI Avenue
-        </div>
-        <div class="footer-line">
-            <a href="https://github.com/craigsdennis/aiave-chatty" target="_blank">👀 the code</a>
-        </div>
-    </footer>
+		<footer class="sticky-footer">
+			<div class="footer-line">
+				Built with 🧡 on <a href="https://developers.cloudflare.com" target="_blank">Cloudflare Workers</a> &&
+				<a href="https://developers.cloudflare.com/workers-ai" target="_blank">Workers AI</a> for AI Avenue
+			</div>
+			<div class="footer-line">
+				<a href="https://github.com/craigsdennis/aiave-chatty" target="_blank">👀 the code</a>
+			</div>
+		</footer>
 
-    <script src="script.js"></script>
-</body>
+		<script src="script.js"></script>
+	</body>
 </html>

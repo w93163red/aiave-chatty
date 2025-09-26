@@ -20,6 +20,7 @@
 	"ai": {"binding": "AI"},
 	"env": {
 		"production": {
+			"ai": {"binding": "AI"},
 			"routes": [{
 				"custom_domain": true,
 				"pattern": "chatty.aiavenue.show"

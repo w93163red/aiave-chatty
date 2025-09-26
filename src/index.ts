@@ -1,53 +1,44 @@
-import { Hono } from 'hono';
-import { events } from 'fetch-event-stream';
-import { streamText } from 'hono/streaming';
+import { events } from "fetch-event-stream";
+import { Hono } from "hono";
+import { streamText } from "hono/streaming";
 
-const app = new Hono<{ Bindings: Env }>();
+const app = new Hono<{Bindings: Env}>();
 
-app.get('/api/hello', async (c) => {
-	const results = await c.env.AI.run('@cf/meta/llama-4-scout-17b-16e-instruct', {
-		prompt: "Translate the phrase 'Hello, world' in 5 different languages",
-	});
+app.get("/api/hello", async (c) => {
+	const results = await c.env.AI.run("@cf/meta/llama-4-scout-17b-16e-instruct", {
+		prompt: "Say hello world in five different spoken languages"
+	})
 	return c.json(results);
 });
 
-app.post('/api/v1/chat', async (c) => {
-	const payload = await c.req.json();
-	const results = await c.env.AI.run('@cf/meta/llama-4-scout-17b-16e-instruct', {
-		messages: payload.messages,
-		max_tokens: 81000,
-	});
-	return c.text(results.response);
-});
-
-app.post('/api/v2/chat', async (c) => {
-	const { messages, systemMessage } = await c.req.json();
+app.post("/api/chat", async (c) => {
+	const {messages, systemMessage} = await c.req.json();
+	console.log("Payload is", {messages, systemMessage});
 	if (systemMessage) {
-		const systemMsg = { role: 'system', content: systemMessage };
-		messages.unshift(systemMsg);
+		messages.unshift({role: "system", content: systemMessage});
 	}
-	console.log(messages);
-	const results = await c.env.AI.run('@cf/meta/llama-4-scout-17b-16e-instruct', {
+	const results = await c.env.AI.run("@cf/meta/llama-4-scout-17b-16e-instruct", {
 		messages,
-		max_tokens: 81000,
-	});
+		max_tokens: 80000
+	})
+
 	return c.json(results);
 });
 
-app.post('/api/chat', async (c) => {
-	const { messages, systemMessage } = await c.req.json();
+app.post("/api/chat/streaming", async (c) => {
+	const {messages, systemMessage} = await c.req.json();
+	console.log("Payload is", {messages, systemMessage});
 	if (systemMessage) {
-		const systemMsg = { role: 'system', content: systemMessage };
-		messages.unshift(systemMsg);
+		messages.unshift({role: "system", content: systemMessage});
 	}
-	console.log(messages);
-	const resultStream = await c.env.AI.run('@cf/meta/llama-4-scout-17b-16e-instruct', {
+	const resultStream = await c.env.AI.run("@cf/meta/llama-4-scout-17b-16e-instruct", {
 		messages,
-		max_tokens: 81000,
-		stream: true,
-	});
+		max_tokens: 80000,
+		stream: true
+	})
+	// Stream properly in dev mode
 	c.header("Content-Encoding", "Identity");
-	return streamText(c, async (stream) => {
+	return streamText(c, async(stream) => {
 		const chunks = events(new Response(resultStream));
 		for await (const chunk of chunks) {
 			console.log(chunk);
@@ -59,7 +50,8 @@ app.post('/api/chat', async (c) => {
 				}
 			}
 		}
-	});
+	})
 });
+
 
 export default app;
