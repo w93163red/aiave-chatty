@@ -5,11 +5,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Chatty</title>
 		<link rel="stylesheet" href="styles.css" />
+		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 	</head>
 	<body>
 		<div class="chat-container">
 			<header class="app-header">
 				<h1>Chatty 🤖💬</h1>
+				<div class="context-indicator" id="context-indicator">
+					<span class="context-label">💬 Context:</span>
+					<span class="context-count" id="context-count">0 messages</span>
+				</div>
 			</header>
 			<div class="chat-log" id="chat-log"></div>
 			<div class="input-container">
@@ -17,11 +22,16 @@
 				<button id="send-btn">Send</button>
 			</div>
 			<div class="admin-section">
-				<h2>Admin Section</h2>
+				<div class="admin-header">
+					<h2>Admin Section</h2>
+					<button id="clear-chat-btn" class="clear-btn">🗑️ Clear Chat</button>
+				</div>
 				<textarea id="system-message" placeholder="System message...">You are a helpful assistant.</textarea>
-				<button id="example-btn-1">New Yorker</button>
-				<button id="example-btn-2">Karaoke Expert</button>
-				<button id="example-btn-3">Technical Explainer</button>
+				<div class="preset-buttons">
+					<button id="example-btn-1">💼 Startup CEO</button>
+					<button id="example-btn-2">🚀 Tech Innovator</button>
+					<button id="example-btn-3">👨‍🏫 CS Professor</button>
+				</div>
 			</div>
 		</div>
 
