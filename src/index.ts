@@ -53,5 +53,29 @@ app.post("/api/chat/streaming", async (c) => {
 	})
 });
 
+app.post("/api/generate-image", async (c) => {
+	const { prompt } = await c.req.json();
+	console.log("Image generation prompt:", prompt);
+
+	if (!prompt || typeof prompt !== 'string') {
+		return c.json({ error: "Prompt is required" }, 400);
+	}
+
+	const inputs = {
+		prompt: prompt.trim(),
+	};
+
+	const response = await c.env.AI.run(
+		"@cf/bytedance/stable-diffusion-xl-lightning",
+		inputs
+	);
+
+	return new Response(response, {
+		headers: {
+			"content-type": "image/jpeg",
+		},
+	});
+});
+
 
 export default app;
